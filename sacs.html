@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sacs - Coin Précieux</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blanc: #FFFFFF;
+            --rose-pale: #FDF0F3;
+            --rose-clair: #F7D6DE;
+            --rose-moyen: #E8A0B0;
+            --rose-fonce: #B85070;
+            --texte: #3A1F26;
+            --texte-muted: #8A6070;
+            --or: #C9A96E;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Jost', sans-serif;
+            background: var(--blanc);
+            color: var(--texte);
+        }
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(255,255,255,0.96);
+            border-bottom: 1px solid var(--rose-clair);
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-main {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            color: var(--rose-fonce);
+            letter-spacing: 1px;
+        }
+        .logo-sub {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--or);
+        }
+        .nav-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+        nav a {
+            color: var(--texte);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        nav a:hover { color: var(--rose-fonce); }
+        main {
+            padding: 90px 5% 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .hero h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 5vw, 52px);
+            margin-bottom: 14px;
+        }
+        .hero p {
+            max-width: 620px;
+            margin: 0 auto;
+            color: var(--texte-muted);
+            line-height: 1.8;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+        .product {
+            background: var(--rose-pale);
+            border: 1px solid rgba(232,160,176,0.35);
+            border-radius: 24px;
+            padding: 26px 22px;
+            box-shadow: 0 16px 34px rgba(184,80,112,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .product h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            margin-bottom: 8px;
+            color: var(--rose-fonce);
+        }
+        .product p {
+            color: var(--texte-muted);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        .product button {
+            width: 100%;
+            background: var(--rose-fonce);
+            color: var(--blanc);
+            border: none;
+            border-radius: 999px;
+            padding: 12px 0;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .product button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 30px rgba(184,80,112,0.18);
+        }
+        footer {
+            background: var(--rose-clair);
+            text-align: center;
+            padding: 18px 5%;
+            color: var(--texte-muted);
+            font-size: 14px;
+        }
+        @media (max-width: 700px) {
+            header { flex-direction: column; align-items: center; gap: 12px; padding: 16px 5%; }
+            .nav-wrapper { align-items: center; width: 100%; }
+            nav { justify-content: center; gap: 12px; }
+            main { padding: 80px 5% 30px; }
+            .products { grid-template-columns: 1fr; gap: 18px; padding: 0; }
+            .product { width: 100%; padding: 22px; }
+            .product button { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <div class="logo-main">Coin Précieux</div>
+            <div class="logo-sub">by Amy Diouf</div>
+        </div>
+        <div class="nav-wrapper">
+            <nav>
+                <a href="index.html">Accueil</a>
+                <a href="habits.html">Habits</a>
+                <a href="sacs.html">Sacs</a>
+                <a href="chaussures.html">Chaussures</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <h2>Sacs élégants pour filles</h2>
+            <p>Choisissez un sac tendance, puis envoyez un message direct sur WhatsApp au +777302143 pour réserver votre article.</p>
+        </section>
+        <section class="products">
+            <article class="product">
+                <h3>Sac rose satiné</h3>
+                <p>Petit sac à bandoulière rose, parfait pour un look doux et raffiné.</p>
+                <button onclick="envoyerWhatsApp('Sac rose satiné')">Commander sur WhatsApp</button>
+            </article>
+            <article class="product">
+                <h3>Sac blanc perlé</h3>
+                <p>Sac élégant blanc avec détails perlés, idéal pour les sorties spéciales.</p>
+                <button onclick="envoyerWhatsApp('Sac blanc perlé')">Commander sur WhatsApp</button>
+            </article>
+            <article class="product">
+                <h3>Mini sac coquillage</h3>
+                <p>Mini sac tendance en forme de coquillage pour une touche mode unique.</p>
+                <button onclick="envoyerWhatsApp('Mini sac coquillage')">Commander sur WhatsApp</button>
+            </article>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 Coin Précieux. Tous droits réservés.</p>
+    </footer>
+    <script>
+        function envoyerWhatsApp(produit) {
+            const message = encodeURIComponent('Bonjour Amy, je suis intéressé(e) par ' + produit + ' sur Coin Précieux.');
+            window.open('https://wa.me/777302143?text=' + message, '_blank');
+        }
+    </script>
+</body>
+</html>

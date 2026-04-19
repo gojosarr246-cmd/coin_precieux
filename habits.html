@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habits - Coin Précieux</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blanc: #FFFFFF;
+            --rose-pale: #FDF0F3;
+            --rose-clair: #F7D6DE;
+            --rose-moyen: #E8A0B0;
+            --rose-fonce: #B85070;
+            --texte: #3A1F26;
+            --texte-muted: #8A6070;
+            --or: #C9A96E;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Jost', sans-serif;
+            background: var(--blanc);
+            color: var(--texte);
+        }
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--rose-clair);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(184,80,112,0.1);
+            transition: all 0.3s ease;
+        }
+        .logo-main {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--rose-fonce);
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+        .logo-main:hover {
+            color: var(--rose-moyen);
+        }
+        .logo-sub {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--or);
+        }
+        .nav-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        nav a {
+            color: var(--texte);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s ease;
+            padding: 8px 0;
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--rose-fonce);
+            transition: width 0.3s ease;
+        }
+        nav a:hover {
+            color: var(--rose-fonce);
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        main {
+            padding: 90px 5% 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .hero h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 5vw, 52px);
+            margin-bottom: 14px;
+        }
+        .hero p {
+            max-width: 620px;
+            margin: 0 auto;
+            color: var(--texte-muted);
+            line-height: 1.8;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        .product {
+            background: var(--rose-pale);
+            border: 1px solid rgba(232,160,176,0.35);
+            border-radius: 24px;
+            padding: 0;
+            box-shadow: 0 16px 34px rgba(184,80,112,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+        }
+        .product:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 28px 60px rgba(184,80,112,0.2);
+        }
+        .product::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(184,80,112,0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .product:hover::before {
+            opacity: 1;
+        }
+        .product-image {
+            width: 100%;
+            height: 220px;
+            background: var(--rose-clair);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            transition: transform 0.3s ease;
+        }
+        .product:hover .product-image {
+            transform: scale(1.05);
+        }
+        .product-content {
+            padding: 24px;
+            width: 100%;
+        }
+        .product h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--rose-fonce);
+            transition: color 0.3s ease;
+        }
+        .product:hover h3 {
+            color: var(--rose-accent);
+        }
+        .product p {
+            color: var(--texte-muted);
+            margin-bottom: 24px;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+        .product button {
+            width: 100%;
+            background: var(--rose-fonce);
+            color: var(--blanc);
+            border: none;
+            border-radius: 999px;
+            padding: 14px 0;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+        .product button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transition: width 0.6s, height 0.6s;
+            transform: translate(-50%, -50%);
+        }
+        .product button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        .product button:hover {
+            background: var(--rose-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(184,80,112,0.3);
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background-color: var(--blanc);
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid var(--rose-clair);
+            border-radius: 24px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 16px 34px rgba(184,80,112,0.2);
+        }
+        .close {
+            color: var(--texte);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: var(--rose-fonce);
+        }
+        #modalImage {
+            margin: 20px 0;
+            border-radius: 12px;
+        }
+        #whatsappBtn {
+            background: var(--rose-fonce);
+            color: var(--blanc);
+            border: none;
+            border-radius: 999px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        #whatsappBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 30px rgba(184,80,112,0.18);
+        }
+        /* ── FOOTER ── */
+        footer {
+            background: var(--texte);
+            color: rgba(255,255,255,0.7);
+            padding: 60px 5% 30px;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px; max-width: 1100px; margin: 0 auto 50px;
+        }
+        .footer-logo-main {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px; color: #fff; margin-bottom: 4px;
+        }
+        .footer-logo-sub {
+            font-size: 11px; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--or); margin-bottom: 16px;
+        }
+        .footer-about {
+            font-size: 13px; line-height: 1.8; max-width: 280px;
+        }
+        .footer-col h4 {
+            color: #fff; font-size: 13px; font-weight: 500;
+            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;
+        }
+        .footer-col a {
+            display: block; color: rgba(255,255,255,0.6);
+            text-decoration: none; font-size: 13px;
+            margin-bottom: 10px; transition: color 0.2s;
+        }
+        .footer-col a:hover { color: var(--rose-moyen); }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 24px; text-align: center;
+            font-size: 12px; letter-spacing: 1px; max-width: 1100px; margin: 0 auto;
+        }
+        .footer-bottom span { color: var(--rose-moyen); }
+        @media (max-width: 700px) {
+            header { flex-direction: column; align-items: center; gap: 12px; padding: 16px 5%; }
+            .nav-wrapper { align-items: center; width: 100%; }
+            nav { justify-content: center; gap: 12px; }
+            main { padding: 80px 5% 30px; }
+            .products { grid-template-columns: 1fr; gap: 18px; padding: 0; }
+            .product { width: 100%; padding: 22px; }
+            .product button { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <div class="logo-main">Coin Précieux</div>
+            <div class="logo-sub">by Amy Diouf</div>
+        </div>
+        <div class="nav-wrapper">
+            <nav>
+                <a href="index.html">Accueil</a>
+                <a href="habits.html">Habits</a>
+                <a href="sacs.html">Sacs</a>
+                <a href="chaussures.html">Chaussures</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <h2>Habits élégants pour filles</h2>
+            <p>Découvrez une sélection raffinée de robes, jupes et ensembles pour filles. Pour commander, cliquez sur le bouton et envoyez un message direct sur WhatsApp au +777302143.</p>
+        </section>
+        <section class="products">
+            <article class="product">
+                <div class="product-image">
+                    <img src="https://via.placeholder.com/300x300/ffe6f0/000000?text=Robe+Rose" alt="Robe rose chic" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" onclick="window.open(this.src, '_blank')">
+                </div>
+                <div class="product-content">
+                    <h3>Robe rose chic</h3>
+                    <p>Robe fluide rose pâle, parfaite pour les fêtes et les sorties élégantes.</p>
+                    <button onclick="ouvrirModal('Robe rose chic', 'https://via.placeholder.com/300x300/ffe6f0/000000?text=Robe+Rose')">Commander</button>
+                </div>
+            </article>
+            <article class="product">
+                <div class="product-image">
+                    <img src="https://via.placeholder.com/300x300/ffffff/000000?text=Jupe+Blanche" alt="Jupe blanche plissée" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" onclick="window.open(this.src, '_blank')">
+                </div>
+                <div class="product-content">
+                    <h3>Jupe blanche plissée</h3>
+                    <p>Jupe blanche délicate, idéale pour un look doux et féminin.</p>
+                    <button onclick="ouvrirModal('Jupe blanche plissée', 'https://via.placeholder.com/300x300/ffffff/000000?text=Jupe+Blanche')">Commander</button>
+                </div>
+            </article>
+            <article class="product">
+                <div class="product-image">
+                    <img src="https://via.placeholder.com/300x300/f7d6de/000000?text=Ensemble+Top+Jupe" alt="Ensemble top et jupe" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" onclick="window.open(this.src, '_blank')">
+                </div>
+                <div class="product-content">
+                    <h3>Ensemble top et jupe</h3>
+                    <p>Ensemble coordonné rose clair, parfait pour les occasions spéciales.</p>
+                    <button onclick="ouvrirModal('Ensemble top et jupe', 'https://via.placeholder.com/300x300/f7d6de/000000?text=Ensemble+Top+Jupe')">Commander</button>
+                </div>
+            </article>
+        </section>
+    </main>
+    <!-- Modal pour afficher l'image du produit -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="modalImage" src="" alt="Produit" style="width: 100%; max-width: 400px; height: auto;">
+            <p id="modalText"></p>
+            <button id="whatsappBtn">Confirmer et ouvrir WhatsApp</button>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-logo-main">Coin Précieux</div>
+                <div class="footer-logo-sub">by Amy Diouf</div>
+                <p class="footer-about">Votre boutique de mode féminine, dédiée à l'élégance et au raffinement. Robes, sacs et chaussures sélectionnés avec amour pour chaque fille précieuse.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Boutique</h4>
+                <a href="habits.html">Robes & Habits</a>
+                <a href="sacs.html">Sacs & Accessoires</a>
+                <a href="chaussures.html">Chaussures</a>
+                <a href="#">Nouveautés</a>
+                <a href="#">Promotions</a>
+            </div>
+            <div class="footer-col">
+                <h4>Information</h4>
+                <a href="#">À propos</a>
+                <a href="#">Livraison</a>
+                <a href="#">Retours</a>
+                <a href="#">FAQ</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <a href="https://wa.me/777302143">WhatsApp</a>
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">Email</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 <span>Coin Précieux</span> — Créé avec ♥ pour Amy Diouf. Tous droits réservés.
+        </div>
+    </footer>
+    <script>
+        let currentProduct = '';
+        let currentImageUrl = '';
+
+        function ouvrirModal(produit, imageUrl) {
+            currentProduct = produit;
+            currentImageUrl = imageUrl;
+            document.getElementById('modalImage').src = imageUrl;
+            document.getElementById('modalText').innerText = 'Vous allez commander : ' + produit;
+            document.getElementById('productModal').style.display = 'block';
+        }
+
+        function envoyerWhatsApp() {
+            const message = encodeURIComponent('Bonjour Amy, je suis intéressé(e) par ' + currentProduct + ' sur Coin Précieux. Voici l\'image du produit : ' + currentImageUrl);
+            window.open('https://wa.me/777302143?text=' + message, '_blank');
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        // Fermer la modal
+        document.querySelector('.close').onclick = function() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('productModal')) {
+                document.getElementById('productModal').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coin Précieux — Aminah</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blanc: #FFFFFF;
+    --rose-pale: #FDF0F3;
+    --rose-clair: #F7D6DE;
+    --rose-moyen: #E8A0B0;
+    --rose-accent: #D4728A;
+    --rose-fonce: #B85070;
+    --texte: #3A1F26;
+    --texte-muted: #8A6070;
+    --or: #C9A96E;
+  }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--blanc);
+    color: var(--texte);
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--rose-clair);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+    box-shadow: 0 4px 20px rgba(184,80,112,0.1);
+    transition: all 0.3s ease;
+  }
+
+  .logo {
+    display: flex; align-items: center;
+  }
+  .logo-image {
+    height: 50px; width: auto; margin-right: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(184,80,112,0.2);
+  }
+  .logo-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px; font-weight: 600;
+    color: var(--rose-fonce);
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+  }
+  .logo-main:hover {
+    color: var(--rose-moyen);
+  }
+  .logo-sub {
+    font-size: 11px; font-weight: 300;
+    letter-spacing: 4px; text-transform: uppercase;
+    color: var(--or);
+  }
+
+  nav { display: flex; gap: 32px; align-items: center; }
+  nav a {
+    text-decoration: none; color: var(--texte);
+    font-size: 14px; font-weight: 500;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    position: relative;
+    transition: color 0.3s ease;
+    padding: 8px 0;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--rose-fonce);
+    transition: width 0.3s ease;
+  }
+  nav a:hover {
+    color: var(--rose-fonce);
+  }
+  nav a:hover::after {
+    width: 100%;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fff 0%, var(--rose-pale) 50%, #fff 100%);
+    display: flex; align-items: center;
+    padding: 120px 5% 80px;
+    position: relative; overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--rose-clair) 0%, transparent 70%);
+    opacity: 0.5;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -50px; left: -50px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--rose-pale) 0%, transparent 70%);
+    opacity: 0.6;
+  }
+
+  .hero-content {
+    max-width: 580px; position: relative; z-index: 1;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--or); border: 1px solid var(--or);
+    padding: 6px 16px; border-radius: 20px; margin-bottom: 28px;
+    font-weight: 500;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 6vw, 72px);
+    line-height: 1.15; font-weight: 600;
+    color: var(--texte);
+    margin-bottom: 20px;
+  }
+  .hero h1 em { color: var(--rose-fonce); font-style: italic; }
+
+  .hero p {
+    font-size: 16px; font-weight: 300; color: var(--texte-muted);
+    line-height: 1.8; margin-bottom: 40px; max-width: 440px;
+  }
+
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--rose-fonce); color: #fff;
+    padding: 14px 32px; border-radius: 40px;
+    font-size: 13px; font-weight: 500; letter-spacing: 1.5px;
+    text-transform: uppercase; text-decoration: none;
+    transition: all 0.3s; border: 2px solid var(--rose-fonce);
+  }
+  .btn-primary:hover {
+    background: transparent; color: var(--rose-fonce);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--texte);
+    padding: 14px 32px; border-radius: 40px;
+    font-size: 13px; font-weight: 500; letter-spacing: 1.5px;
+    text-transform: uppercase; text-decoration: none;
+    border: 1px solid var(--rose-moyen);
+    transition: all 0.3s;
+  }
+  .btn-outline:hover {
+    border-color: var(--rose-fonce); color: var(--rose-fonce);
+    transform: translateY(-2px);
+  }
+
+  .hero-image {
+    flex: 1; display: flex; justify-content: center; align-items: center;
+    position: relative; z-index: 1; min-height: 480px;
+  }
+
+  .hero-card-float {
+    width: 340px; height: 440px;
+    background: var(--blanc);
+    border-radius: 30px 8px 30px 8px;
+    border: 1px solid var(--rose-clair);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    box-shadow: 0 20px 60px rgba(180,80,112,0.12);
+    position: relative; overflow: hidden;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .hero-card-float::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(160deg, var(--rose-pale) 0%, #fff 60%);
+  }
+
+  .dress-illustration {
+    position: relative; z-index: 1;
+    font-size: 100px; line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .hero-card-label {
+    position: relative; z-index: 1;
+    text-align: center;
+  }
+  .hero-card-label p {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; color: var(--rose-fonce); margin: 0;
+  }
+  .hero-card-label span {
+    font-size: 12px; color: var(--texte-muted); letter-spacing: 2px;
+  }
+
+  .float-tag {
+    position: absolute; top: 24px; right: -12px;
+    background: var(--or); color: #fff;
+    padding: 8px 16px; border-radius: 20px 0 0 20px;
+    font-size: 11px; font-weight: 500; letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── SECTION TITRES ── */
+  .section-head {
+    text-align: center; margin-bottom: 56px;
+  }
+  .section-head .eyebrow {
+    display: block; font-size: 11px; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--or);
+    margin-bottom: 12px;
+  }
+  .section-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 42px); font-weight: 600;
+    color: var(--texte);
+  }
+  .section-head h2 em { color: var(--rose-fonce); font-style: italic; }
+
+  /* ── CATEGORIES ── */
+  .categories {
+    padding: 100px 5%;
+    background: var(--blanc);
+  }
+
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  .cat-card {
+    border-radius: 20px; overflow: hidden;
+    position: relative; cursor: pointer;
+    aspect-ratio: 3/4;
+    transition: transform 0.4s;
+    text-decoration: none;
+  }
+  .cat-card:hover { transform: translateY(-8px); }
+
+  .cat-bg {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 80px;
+  }
+
+  .cat-card.robes .cat-bg { background: linear-gradient(160deg, #FBEAF0 0%, #F4C0D1 100%); }
+  .cat-card.sacs .cat-bg { background: linear-gradient(160deg, #FDF5E0 0%, #F9DFA0 100%); }
+  .cat-card.chaussures .cat-bg { background: linear-gradient(160deg, #E6F0FB 0%, #B5D4F4 100%); }
+
+  .cat-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 24px 20px;
+    background: linear-gradient(to top, rgba(58,31,38,0.75) 0%, transparent 100%);
+    color: #fff;
+  }
+  .cat-overlay h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 600; margin-bottom: 4px;
+  }
+  .cat-overlay span {
+    font-size: 12px; font-weight: 300; letter-spacing: 2px;
+    opacity: 0.85;
+  }
+
+  /* ── PRODUITS ── */
+  .produits {
+    padding: 100px 5%;
+    background: var(--rose-pale);
+  }
+
+  .prod-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 28px; max-width: 1200px; margin: 0 auto;
+  }
+
+  .prod-card {
+    background: var(--blanc);
+    border-radius: 20px; overflow: hidden;
+    border: 1px solid rgba(232,160,176,0.3);
+    transition: box-shadow 0.3s, transform 0.3s;
+    cursor: pointer;
+  }
+  .prod-card:hover {
+    box-shadow: 0 12px 40px rgba(180,80,112,0.15);
+    transform: translateY(-4px);
+  }
+
+  .prod-img {
+    aspect-ratio: 4/5;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 72px; position: relative;
+    overflow: hidden;
+  }
+
+  .prod-img.rose-bg { background: linear-gradient(145deg, #FDF0F3, #F7D6DE); }
+  .prod-img.creme-bg { background: linear-gradient(145deg, #FDF8F0, #F5E8C8); }
+  .prod-img.bleu-bg { background: linear-gradient(145deg, #EFF4FD, #D4E5F7); }
+  .prod-img.vert-bg { background: linear-gradient(145deg, #EFF7EF, #CCE8CC); }
+
+  .prod-badge {
+    position: absolute; top: 14px; left: 14px;
+    background: var(--rose-fonce); color: #fff;
+    font-size: 10px; font-weight: 500; letter-spacing: 1px;
+    padding: 5px 12px; border-radius: 20px;
+    text-transform: uppercase;
+  }
+  .prod-badge.new { background: var(--or); }
+
+  .prod-wish {
+    position: absolute; top: 12px; right: 12px;
+    width: 34px; height: 34px; background: rgba(255,255,255,0.85);
+    border-radius: 50%; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; transition: background 0.2s;
+  }
+  .prod-wish:hover { background: #fff; }
+
+  .prod-info { padding: 20px; }
+  .prod-info h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 600; color: var(--texte);
+    margin-bottom: 4px;
+  }
+  .prod-info .sous-cat {
+    font-size: 11px; color: var(--texte-muted);
+    letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px;
+  }
+  .prod-footer {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .prix {
+    font-size: 18px; font-weight: 500; color: var(--rose-fonce);
+  }
+  .prix-old {
+    font-size: 13px; color: var(--texte-muted);
+    text-decoration: line-through; margin-right: 6px;
+  }
+  .add-btn {
+    width: 38px; height: 38px;
+    background: var(--rose-fonce); border: none;
+    border-radius: 50%; color: #fff; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; transition: all 0.2s;
+  }
+  .add-btn:hover { background: var(--rose-accent); transform: scale(1.1); }
+
+  .product-grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .product-card {
+    background: var(--blanc);
+    border: 1px solid rgba(232,160,176,0.3);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(184,80,112,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 50px rgba(184,80,112,0.15);
+  }
+  .product-image {
+    background: var(--rose-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 240px;
+    font-size: 96px;
+  }
+  .product-content {
+    padding: 24px;
+  }
+  .product-content h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: var(--rose-fonce);
+  }
+  .product-content p {
+    color: var(--texte-muted);
+    line-height: 1.8;
+    margin-bottom: 22px;
+  }
+  .product-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--rose-fonce);
+  }
+  .product-action button {
+    width: 100%;
+  }
+
+  /* ── STARS ── */
+  .stars { color: var(--or); font-size: 13px; margin-bottom: 8px; }
+
+  /* ── PROMO BANNER ── */
+  .promo {
+    padding: 80px 5%;
+    background: var(--rose-fonce);
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .promo::before {
+    content: '✦ ✦ ✦';
+    position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+    color: rgba(255,255,255,0.2); font-size: 24px; letter-spacing: 20px;
+  }
+  .promo h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 5vw, 52px); color: #fff;
+    font-weight: 600; margin-bottom: 16px;
+  }
+  .promo h2 em { color: var(--rose-clair); font-style: italic; }
+  .promo p {
+    color: rgba(255,255,255,0.75); font-size: 16px;
+    margin-bottom: 36px; font-weight: 300;
+  }
+  .btn-white {
+    display: inline-block;
+    background: #fff; color: var(--rose-fonce);
+    padding: 14px 40px; border-radius: 40px;
+    font-size: 13px; font-weight: 500; letter-spacing: 2px;
+    text-transform: uppercase; text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-white:hover {
+    background: var(--rose-pale); transform: translateY(-2px);
+  }
+
+  /* ── APROPOS ── */
+  .apropos {
+    padding: 100px 5%;
+    display: flex; align-items: center; gap: 80px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .apropos-img {
+    flex: 0 0 320px; height: 400px;
+    background: linear-gradient(145deg, var(--rose-pale), var(--rose-clair));
+    border-radius: 50% 20px 50% 20px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .apropos-img img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    border-radius: 50% 20px 50% 20px;
+  }
+  .apropos-img::after {
+    content: '';
+    position: absolute; inset: -12px;
+    border: 1px solid var(--rose-moyen);
+    border-radius: 50% 20px 50% 20px;
+    opacity: 0.5;
+  }
+  .apropos-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px; color: var(--texte); margin-bottom: 20px;
+  }
+  .apropos-text h2 em { color: var(--rose-fonce); font-style: italic; }
+  .apropos-text p {
+    color: var(--texte-muted); font-size: 16px;
+    line-height: 1.9; font-weight: 300; margin-bottom: 16px;
+  }
+  .apropos-signature {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-style: italic;
+    color: var(--rose-fonce); margin-top: 24px;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .avis {
+    padding: 100px 5%;
+    background: var(--rose-pale);
+    text-align: center;
+  }
+  .avis-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px; max-width: 1000px; margin: 0 auto;
+  }
+  .avis-card {
+    background: #fff; padding: 32px 24px;
+    border-radius: 20px;
+    border: 1px solid rgba(232,160,176,0.3);
+  }
+  .avis-card .stars { font-size: 14px; margin-bottom: 14px; }
+  .avis-card p {
+    font-size: 14px; color: var(--texte-muted);
+    line-height: 1.8; font-style: italic; margin-bottom: 20px;
+  }
+  .avis-card strong {
+    font-size: 13px; color: var(--texte); font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  /* ── NEWSLETTER ── */
+  .newsletter {
+    padding: 80px 5%; text-align: center;
+    background: #fff;
+  }
+  .newsletter h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px; margin-bottom: 12px; color: var(--texte);
+  }
+  .newsletter p {
+    color: var(--texte-muted); margin-bottom: 32px; font-size: 15px;
+  }
+  .news-form {
+    display: flex; gap: 12px; max-width: 480px;
+    margin: 0 auto; justify-content: center;
+  }
+  .news-form input {
+    flex: 1; padding: 14px 20px;
+    border: 1px solid var(--rose-moyen);
+    border-radius: 40px; font-family: 'Jost', sans-serif;
+    font-size: 14px; outline: none; color: var(--texte);
+    background: var(--rose-pale);
+  }
+  .news-form input:focus { border-color: var(--rose-fonce); }
+  .news-form button {
+    padding: 14px 28px;
+    background: var(--rose-fonce); color: #fff;
+    border: none; border-radius: 40px; cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px; font-weight: 500; letter-spacing: 1px;
+    text-transform: uppercase; transition: all 0.3s;
+    white-space: nowrap;
+  }
+  .news-form button:hover { background: var(--rose-accent); transform: scale(1.04); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--texte);
+    color: rgba(255,255,255,0.7);
+    padding: 60px 5% 30px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px; max-width: 1100px; margin: 0 auto 50px;
+  }
+  .footer-logo-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; color: #fff; margin-bottom: 4px;
+  }
+  .footer-logo-sub {
+    font-size: 11px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--or); margin-bottom: 16px;
+  }
+  .footer-about {
+    font-size: 13px; line-height: 1.8; max-width: 280px;
+  }
+  .footer-col h4 {
+    color: #fff; font-size: 13px; font-weight: 500;
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;
+  }
+  .footer-col a {
+    display: block; color: rgba(255,255,255,0.6);
+    text-decoration: none; font-size: 13px;
+    margin-bottom: 10px; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--rose-moyen); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px; text-align: center;
+    font-size: 12px; letter-spacing: 1px; max-width: 1100px; margin: 0 auto;
+  }
+  .footer-bottom span { color: var(--rose-moyen); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-16px); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .logo-image { height: 35px; margin-right: 10px; }
+    .logo-main { font-size: 20px; }
+    header { flex-direction: column; align-items: center; gap: 16px; padding: 16px 5%; height: auto; }
+    nav { display: flex; flex-wrap: nowrap; justify-content: center; gap: 12px; overflow-x: auto; }
+    nav a { white-space: nowrap; }
+    .hero { flex-direction: column; text-align: center; padding: 120px 5% 60px; }
+    .hero p { max-width: 100%; margin: 0 auto 24px; }
+    .hero-btns { justify-content: center; width: 100%; flex-direction: column; gap: 20px; margin-top: 10px; }
+    .btn-primary, .btn-outline { width: 100%; max-width: 280px; padding: 16px 24px; font-size: 14px; }
+    div[style*="text-align: center"] a.btn-primary { display: block; width: 100%; max-width: 280px; margin: 10px auto !important; }
+    .hero-image { display: none; }
+    .cat-grid { grid-template-columns: 1fr; }
+    .cat-card:last-child { grid-column: auto; }
+    .apropos { flex-direction: column; text-align: center; padding: 80px 5%; }
+    .apropos-img { flex: none; width: 240px; height: 300px; margin: 0 auto 30px; }
+    .avis-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-grid { gap: 24px; }
+    .newsletter .news-form { flex-direction: column; }
+    .newsletter .news-form input, .newsletter .news-form button { width: 100%; }
+    .btn-outline, .btn-primary, .btn-white { width: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="logo">
+    <img src="images/logo.jpeg" alt="Coin Précieux Logo" class="logo-image">
+    <div class="logo-main">Coin Précieux</div>
+    <div class="logo-sub">by Aminah</div>
+  </div>
+  <nav>
+    <a href="#categories">Collections</a>
+    <a href="#produits">Boutique</a>
+    <a href="#apropos">À propos</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">✦ Nouvelle Collection 2025</div>
+    <h1>La Mode<br><em>Précieuse</em><br>pour Filles</h1>
+    <p>Découvrez une sélection raffinée de robes, sacs et chaussures pensées pour sublimer chaque fille. Élégance, douceur et style réunis.</p>
+    <div class="hero-btns">
+      <a href="#categories" class="btn-primary">Voir les collections</a>
+      <a href="habits.html" class="btn-outline">Voir Habits</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="hero-card-float">
+      <span class="float-tag">Tendance</span>
+      <div class="dress-illustration">👗</div>
+      <div class="hero-card-label">
+        <p>Robe Florale</p>
+        <span>Collection Printemps</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CATEGORIES ═══ -->
+<section class="categories" id="categories">
+  <div class="section-head">
+    <span class="eyebrow">Explorez</span>
+    <h2>Nos <em>Collections</em></h2>
+  </div>
+  <div class="cat-grid">
+    <a href="habits.html" class="cat-card robes">
+      <div class="cat-bg">👗</div>
+      <div class="cat-overlay">
+        <h3>Robes & Habits</h3>
+        <span>24 articles disponibles</span>
+      </div>
+    </a>
+    <a href="sacs.html" class="cat-card sacs">
+      <div class="cat-bg">👜</div>
+      <div class="cat-overlay">
+        <h3>Sacs & Accessoires</h3>
+        <span>18 articles disponibles</span>
+      </div>
+    </a>
+    <a href="chaussures.html" class="cat-card chaussures">
+      <div class="cat-bg">👠</div>
+      <div class="cat-overlay">
+        <h3>Chaussures</h3>
+        <span>30 articles disponibles</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ BOUTIQUE ═══ -->
+<section class="produits" id="produits">
+  <div class="section-head">
+    <span class="eyebrow">Nos Collections</span>
+    <h2>Magasinez par <em>Catégorie</em></h2>
+  </div>
+  <p style="text-align: center; font-size: 18px; color: var(--texte-muted); max-width: 760px; margin: 0 auto 32px;">
+    Retrouvez tous les articles dans les pages dédiées : Habits, Sacs et Chaussures. Cliquez sur une collection pour voir les produits.
+  </p>
+  <div style="text-align: center; margin: 20px;">
+    <a href="habits.html" class="btn-primary">Voir Habits</a>
+    <a href="sacs.html" class="btn-primary" style="margin: 0 10px;">Voir Sacs</a>
+    <a href="chaussures.html" class="btn-primary">Voir Chaussures</a>
+  </div>
+</section>
+
+<!-- ═══ PROMO BANNER ═══ -->
+<section class="promo">
+  <h2>Livraison <em>Gratuite</em> dès 25 000 FCFA</h2>
+  <p>Commandez maintenant et recevez votre colis chez vous dans les 48h</p>
+  <a href="#produits" class="btn-white">Commander maintenant</a>
+</section>
+
+<!-- ═══ À PROPOS ═══ -->
+<section class="apropos" id="apropos">
+  <div class="apropos-img"><img src="images/fondatrice.jpeg" alt="Aminah, fondatrice de Coin Précieux"></div>
+  <div class="apropos-text">
+    <h2>Bienvenue chez<br><em>Coin Précieux</em></h2>
+    <p>Bonjour, je suis <strong>Aminah</strong>, fondatrice de Coin Précieux. Passionnée de mode féminine depuis toujours, j'ai créé cette boutique pour offrir aux femmes et aux filles un espace où beauté et élégance se rencontrent.</p>
+    <p>Chaque pièce est sélectionnée avec soin pour sa qualité, sa finesse et son style. Chez Coin Précieux, vous trouverez des robes magnifiques, des sacs tendance et des chaussures qui subliment chaque pas.</p>
+    <p>Mon engagement : vous faire vous sentir unique, précieuse et rayonnante à chaque occasion.</p>
+    <div class="apropos-signature">Aminah</div>
+  </div>
+</section>
+
+<!-- ═══ AVIS ═══ -->
+<section class="avis">
+  <div class="section-head">
+    <span class="eyebrow">Témoignages</span>
+    <h2>Ce Que Disent Nos <em>Clientes</em></h2>
+  </div>
+  <div class="avis-grid">
+    <div class="avis-card">
+      <div class="stars">★★★★★</div>
+      <p>"La qualité est incroyable ! Ma robe était exactement comme sur les photos. Aminah est très professionnelle et la livraison était rapide."</p>
+      <strong>— Fatou S.</strong>
+    </div>
+    <div class="avis-card">
+      <div class="stars">★★★★★</div>
+      <p>"J'ai commandé des chaussures pour ma fille et elle les adore ! Le service est au top, je recommande vivement Coin Précieux."</p>
+      <strong>— Aïssatou D.</strong>
+    </div>
+    <div class="avis-card">
+      <div class="stars">★★★★★</div>
+      <p>"Le sac que j'ai reçu est magnifique, encore plus beau en vrai ! Je reviendrai certainement pour ma prochaine commande."</p>
+      <strong>— Mariama K.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NEWSLETTER ═══ -->
+<section class="newsletter" id="contact">
+  <div class="section-head">
+    <span class="eyebrow">Restez informée</span>
+    <h2>Abonnez-vous à notre <em>Newsletter</em></h2>
+  </div>
+  <p>Recevez les nouveautés, promotions exclusives et conseils mode directement dans votre boîte mail.</p>
+  <div class="news-form">
+    <input type="email" placeholder="Votre adresse email">
+    <button>S'abonner</button>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo-main">Coin Précieux</div>
+      <div class="footer-logo-sub">by Aminah</div>
+      <p class="footer-about">Votre boutique de mode féminine, dédiée à l'élégance et au raffinement. Robes, sacs et chaussures sélectionnés avec amour pour chaque fille précieuse.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Boutique</h4>
+      <a href="#">Robes & Habits</a>
+      <a href="#">Sacs & Accessoires</a>
+      <a href="#">Chaussures</a>
+      <a href="#">Nouveautés</a>
+      <a href="#">Promotions</a>
+    </div>
+    <div class="footer-col">
+      <h4>Information</h4>
+      <a href="#">À propos</a>
+      <a href="#">Livraison</a>
+      <a href="#">Retours</a>
+      <a href="#">FAQ</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:amyayam04@gmail.com">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px; vertical-align: middle;">
+          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#666666"/>
+        </svg>
+        Email
+      </a>
+      <a href="https://wa.me/774810937">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px; vertical-align: middle;">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488" fill="#25D366"/>
+        </svg>
+        WhatsApp
+      </a>
+      <a href="https://www.instagram.com/coin_precieux?igsh=MXJzdDN0cmtvcnl0dg%3D%3D&utm_source=qr" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px; vertical-align: middle;">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="url(#instagram-gradient)"/>
+          <defs>
+            <linearGradient id="instagram-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#833ab4"/>
+              <stop offset="25%" style="stop-color:#fd1d1d"/>
+              <stop offset="50%" style="stop-color:#fcb045"/>
+              <stop offset="75%" style="stop-color:#ffdc80"/>
+              <stop offset="100%" style="stop-color:#833ab4"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        Instagram
+      </a>
+      <a href="https://www.tiktok.com/@coinprecieux02?_r=1&_t=ZS-95hqqd295jZ" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px; vertical-align: middle;">
+          <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" fill="#000000"/>
+        </svg>
+        TikTok
+      </a>
+      <a href="https://www.snapchat.com/add/queenmya1502?share_id=hUAH_9X4QQu9AAQLOsRkAg&locale=fr_SN" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px; vertical-align: middle;">
+          <path d="M12.065 2.6c-.45 0-.9.04-1.35.11-2.04.32-3.89 1.25-5.44 2.71-.93.88-1.66 1.92-2.2 3.07-.27.58-.47 1.18-.6 1.8-.13.62-.19 1.25-.19 1.89 0 1.08.15 2.13.45 3.13.3 1 .74 1.94 1.32 2.82.58.88 1.29 1.66 2.13 2.33.84.67 1.82 1.19 2.93 1.56.55.18 1.12.32 1.71.41.59.09 1.19.13 1.8.13 1.08 0 2.13-.15 3.13-.45 1-.3 1.94-.74 2.82-1.32.88-.58 1.66-1.29 2.33-2.13.67-.84 1.19-1.82 1.56-2.93.18-.55.32-1.12.41-1.71.09-.59.13-1.19.13-1.8 0-1.08-.15-2.13-.45-3.13-.3-1-.74-1.94-1.32-2.82-.58-.88-1.29-1.66-2.13-2.33-.84-.67-1.82-1.19-2.93-1.56-.55-.18-1.12-.32-1.71-.41-.59-.09-1.19-.13-1.8-.13zm0 1.8c.36 0 .72.02 1.08.06.36.04.71.1 1.05.18.34.08.67.18 1 .3.33.12.64.26.94.42.3.16.58.34.84.54.26.2.5.42.72.66.22.24.41.5.57.78.16.28.29.57.39.87.1.3.17.61.21.93.04.32.06.65.06 1s-.02.68-.06 1-.11.63-.21.93c-.1.3-.23.59-.39.87-.16.28-.35.54-.57.78-.22.24-.46.46-.72.66-.26.2-.54.38-.84.54-.3.16-.61.3-.94.42-.33.12-.66.22-1 .3-.34.08-.69.14-1.05.18-.36.04-.72.06-1.08.06-.36 0-.72-.02-1.08-.06-.36-.04-.71-.1-1.05-.18-.34-.08-.67-.18-1-.3-.33-.12-.64-.26-.94-.42-.3-.16-.58-.34-.84-.54-.26-.2-.5-.42-.72-.66-.22-.24-.41-.5-.57-.78-.16-.28-.29-.57-.39-.87-.1-.3-.17-.61-.21-.93-.04-.32-.06-.65-.06-1s.02-.68.06-1 .11-.63.21-.93c.1-.3.23-.59.39-.87.16-.28.35-.54.57-.78.22-.24.46-.46.72-.66.26-.2.54-.38.84-.54.3-.16.61-.3.94-.42.33-.12.66-.22 1-.3.34-.08.69-.14 1.05-.18.36-.04.72-.06 1.08-.06z" fill="#FFFC00"/>
+        </svg>
+        Snapchat
+      </a>
+      
+      
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 <span>Coin Précieux</span> — Créé avec ♥ pour Aminah. Tous droits réservés.
+  </div>
+</footer>
+
+</body>
+</html>
+

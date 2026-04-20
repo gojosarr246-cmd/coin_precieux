@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coin Précieux — Aminah</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blanc: #FFFFFF;
+    --rose-pale: #FDF0F3;
+    --rose-clair: #F7D6DE;
+    --rose-moyen: #E8A0B0;
+    --rose-accent: #D4728A;
+    --rose-fonce: #B85070;
+    --texte: #3A1F26;
+    --texte-muted: #8A6070;
+    --or: #C9A96E;
+  }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--blanc);
+    color: var(--texte);
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--rose-clair);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+    box-shadow: 0 4px 20px rgba(184,80,112,0.1);
+    transition: all 0.3s ease;
+  }
+
+  .logo {
+    display: flex; flex-direction: column; line-height: 1.1;
+  }
+  .logo-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px; font-weight: 600;
+    color: var(--rose-fonce);
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+  }
+  .logo-main:hover {
+    color: var(--rose-moyen);
+  }
+  .logo-sub {
+    font-size: 11px; font-weight: 300;
+    letter-spacing: 4px; text-transform: uppercase;
+    color: var(--or);
+  }
+
+  nav { display: flex; gap: 32px; align-items: center; }
+  nav a {
+    text-decoration: none; color: var(--texte);
+    font-size: 14px; font-weight: 500;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    position: relative;
+    transition: color 0.3s ease;
+    padding: 8px 0;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--rose-fonce);
+    transition: width 0.3s ease;
+  }
+  nav a:hover {
+    color: var(--rose-fonce);
+  }
+  nav a:hover::after {
+    width: 100%;
+  }
+
+  .header-icons { display: flex; gap: 20px; align-items: center; }
+  .icon-btn {
+    background: none; border: none; cursor: pointer;
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .icon-btn:hover {
+    background: var(--rose-pale);
+    transform: scale(1.1);
+  }
+  .icon-btn svg { width: 20px; height: 20px; stroke: var(--texte); fill: none; stroke-width: 1.5; }
+  .cart-badge {
+    position: absolute; top: 12px; right: 12px;
+    width: 18px; height: 18px; background: var(--rose-fonce);
+    border-radius: 50%; font-size: 10px; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .header-icons { position: relative; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fff 0%, var(--rose-pale) 50%, #fff 100%);
+    display: flex; align-items: center;
+    padding: 120px 5% 80px;
+    position: relative; overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--rose-clair) 0%, transparent 70%);
+    opacity: 0.5;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -50px; left: -50px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--rose-pale) 0%, transparent 70%);
+    opacity: 0.6;
+  }
+
+  .hero-content {
+    max-width: 580px; position: relative; z-index: 1;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--or); border: 1px solid var(--or);
+    padding: 6px 16px; border-radius: 20px; margin-bottom: 28px;
+    font-weight: 500;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 6vw, 72px);
+    line-height: 1.15; font-weight: 600;
+    color: var(--texte);
+    margin-bottom: 20px;
+  }
+  .hero h1 em { color: var(--rose-fonce); font-style: italic; }
+
+  .hero p {
+    font-size: 16px; font-weight: 300; color: var(--texte-muted);
+    line-height: 1.8; margin-bottom: 40px; max-width: 440px;
+  }
+
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--rose-fonce); color: #fff;
+    padding: 14px 32px; border-radius: 40px;
+    font-size: 13px; font-weight: 500; letter-spacing: 1.5px;
+    text-transform: uppercase; text-decoration: none;
+    transition: all 0.3s; border: 2px solid var(--rose-fonce);
+  }
+  .btn-primary:hover {
+    background: transparent; color: var(--rose-fonce);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--texte);
+    padding: 14px 32px; border-radius: 40px;
+    font-size: 13px; font-weight: 500; letter-spacing: 1.5px;
+    text-transform: uppercase; text-decoration: none;
+    border: 1px solid var(--rose-moyen);
+    transition: all 0.3s;
+  }
+  .btn-outline:hover {
+    border-color: var(--rose-fonce); color: var(--rose-fonce);
+    transform: translateY(-2px);
+  }
+
+  .hero-image {
+    flex: 1; display: flex; justify-content: center; align-items: center;
+    position: relative; z-index: 1; min-height: 480px;
+  }
+
+  .hero-card-float {
+    width: 340px; height: 440px;
+    background: var(--blanc);
+    border-radius: 30px 8px 30px 8px;
+    border: 1px solid var(--rose-clair);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    box-shadow: 0 20px 60px rgba(180,80,112,0.12);
+    position: relative; overflow: hidden;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .hero-card-float::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(160deg, var(--rose-pale) 0%, #fff 60%);
+  }
+
+  .dress-illustration {
+    position: relative; z-index: 1;
+    font-size: 100px; line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .hero-card-label {
+    position: relative; z-index: 1;
+    text-align: center;
+  }
+  .hero-card-label p {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; color: var(--rose-fonce); margin: 0;
+  }
+  .hero-card-label span {
+    font-size: 12px; color: var(--texte-muted); letter-spacing: 2px;
+  }
+
+  .float-tag {
+    position: absolute; top: 24px; right: -12px;
+    background: var(--or); color: #fff;
+    padding: 8px 16px; border-radius: 20px 0 0 20px;
+    font-size: 11px; font-weight: 500; letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── SECTION TITRES ── */
+  .section-head {
+    text-align: center; margin-bottom: 56px;
+  }
+  .section-head .eyebrow {
+    display: block; font-size: 11px; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--or);
+    margin-bottom: 12px;
+  }
+  .section-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 42px); font-weight: 600;
+    color: var(--texte);
+  }
+  .section-head h2 em { color: var(--rose-fonce); font-style: italic; }
+
+  /* ── CATEGORIES ── */
+  .categories {
+    padding: 100px 5%;
+    background: var(--blanc);
+  }
+
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  .cat-card {
+    border-radius: 20px; overflow: hidden;
+    position: relative; cursor: pointer;
+    aspect-ratio: 3/4;
+    transition: transform 0.4s;
+    text-decoration: none;
+  }
+  .cat-card:hover { transform: translateY(-8px); }
+
+  .cat-bg {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 80px;
+  }
+
+  .cat-card.robes .cat-bg { background: linear-gradient(160deg, #FBEAF0 0%, #F4C0D1 100%); }
+  .cat-card.sacs .cat-bg { background: linear-gradient(160deg, #FDF5E0 0%, #F9DFA0 100%); }
+  .cat-card.chaussures .cat-bg { background: linear-gradient(160deg, #E6F0FB 0%, #B5D4F4 100%); }
+
+  .cat-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 24px 20px;
+    background: linear-gradient(to top, rgba(58,31,38,0.75) 0%, transparent 100%);
+    color: #fff;
+  }
+  .cat-overlay h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 600; margin-bottom: 4px;
+  }
+  .cat-overlay span {
+    font-size: 12px; font-weight: 300; letter-spacing: 2px;
+    opacity: 0.85;
+  }
+
+  /* ── PRODUITS ── */
+  .produits {
+    padding: 100px 5%;
+    background: var(--rose-pale);
+  }
+
+  .prod-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 28px; max-width: 1200px; margin: 0 auto;
+  }
+
+  .prod-card {
+    background: var(--blanc);
+    border-radius: 20px; overflow: hidden;
+    border: 1px solid rgba(232,160,176,0.3);
+    transition: box-shadow 0.3s, transform 0.3s;
+    cursor: pointer;
+  }
+  .prod-card:hover {
+    box-shadow: 0 12px 40px rgba(180,80,112,0.15);
+    transform: translateY(-4px);
+  }
+
+  .prod-img {
+    aspect-ratio: 4/5;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 72px; position: relative;
+    overflow: hidden;
+  }
+
+  .prod-img.rose-bg { background: linear-gradient(145deg, #FDF0F3, #F7D6DE); }
+  .prod-img.creme-bg { background: linear-gradient(145deg, #FDF8F0, #F5E8C8); }
+  .prod-img.bleu-bg { background: linear-gradient(145deg, #EFF4FD, #D4E5F7); }
+  .prod-img.vert-bg { background: linear-gradient(145deg, #EFF7EF, #CCE8CC); }
+
+  .prod-badge {
+    position: absolute; top: 14px; left: 14px;
+    background: var(--rose-fonce); color: #fff;
+    font-size: 10px; font-weight: 500; letter-spacing: 1px;
+    padding: 5px 12px; border-radius: 20px;
+    text-transform: uppercase;
+  }
+  .prod-badge.new { background: var(--or); }
+
+  .prod-wish {
+    position: absolute; top: 12px; right: 12px;
+    width: 34px; height: 34px; background: rgba(255,255,255,0.85);
+    border-radius: 50%; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; transition: background 0.2s;
+  }
+  .prod-wish:hover { background: #fff; }
+
+  .prod-info { padding: 20px; }
+  .prod-info h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 600; color: var(--texte);
+    margin-bottom: 4px;
+  }
+  .prod-info .sous-cat {
+    font-size: 11px; color: var(--texte-muted);
+    letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px;
+  }
+  .prod-footer {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .prix {
+    font-size: 18px; font-weight: 500; color: var(--rose-fonce);
+  }
+  .prix-old {
+    font-size: 13px; color: var(--texte-muted);
+    text-decoration: line-through; margin-right: 6px;
+  }
+  .add-btn {
+    width: 38px; height: 38px;
+    background: var(--rose-fonce); border: none;
+    border-radius: 50%; color: #fff; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; transition: all 0.2s;
+  }
+  .add-btn:hover { background: var(--rose-accent); transform: scale(1.1); }
+
+  .product-grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .product-card {
+    background: var(--blanc);
+    border: 1px solid rgba(232,160,176,0.3);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(184,80,112,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 50px rgba(184,80,112,0.15);
+  }
+  .product-image {
+    background: var(--rose-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 240px;
+    font-size: 96px;
+  }
+  .product-content {
+    padding: 24px;
+  }
+  .product-content h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: var(--rose-fonce);
+  }
+  .product-content p {
+    color: var(--texte-muted);
+    line-height: 1.8;
+    margin-bottom: 22px;
+  }
+  .product-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--rose-fonce);
+  }
+  .product-action button {
+    width: 100%;
+  }
+
+  /* ── STARS ── */
+  .stars { color: var(--or); font-size: 13px; margin-bottom: 8px; }
+
+  /* ── PROMO BANNER ── */
+  .promo {
+    padding: 80px 5%;
+    background: var(--rose-fonce);
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .promo::before {
+    content: '✦ ✦ ✦';
+    position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+    color: rgba(255,255,255,0.2); font-size: 24px; letter-spacing: 20px;
+  }
+  .promo h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 5vw, 52px); color: #fff;
+    font-weight: 600; margin-bottom: 16px;
+  }
+  .promo h2 em { color: var(--rose-clair); font-style: italic; }
+  .promo p {
+    color: rgba(255,255,255,0.75); font-size: 16px;
+    margin-bottom: 36px; font-weight: 300;
+  }
+  .btn-white {
+    display: inline-block;
+    background: #fff; color: var(--rose-fonce);
+    padding: 14px 40px; border-radius: 40px;
+    font-size: 13px; font-weight: 500; letter-spacing: 2px;
+    text-transform: uppercase; text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-white:hover {
+    background: var(--rose-pale); transform: translateY(-2px);
+  }
+
+  /* ── APROPOS ── */
+  .apropos {
+    padding: 100px 5%;
+    display: flex; align-items: center; gap: 80px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .apropos-img {
+    flex: 0 0 320px; height: 400px;
+    background: linear-gradient(145deg, var(--rose-pale), var(--rose-clair));
+    border-radius: 50% 20px 50% 20px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .apropos-img img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    border-radius: 50% 20px 50% 20px;
+  }
+  .apropos-img::after {
+    content: '';
+    position: absolute; inset: -12px;
+    border: 1px solid var(--rose-moyen);
+    border-radius: 50% 20px 50% 20px;
+    opacity: 0.5;
+  }
+  .apropos-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px; color: var(--texte); margin-bottom: 20px;
+  }
+  .apropos-text h2 em { color: var(--rose-fonce); font-style: italic; }
+  .apropos-text p {
+    color: var(--texte-muted); font-size: 16px;
+    line-height: 1.9; font-weight: 300; margin-bottom: 16px;
+  }
+  .apropos-signature {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-style: italic;
+    color: var(--rose-fonce); margin-top: 24px;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .avis {
+    padding: 100px 5%;
+    background: var(--rose-pale);
+    text-align: center;
+  }
+  .avis-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px; max-width: 1000px; margin: 0 auto;
+  }
+  .avis-card {
+    background: #fff; padding: 32px 24px;
+    border-radius: 20px;
+    border: 1px solid rgba(232,160,176,0.3);
+  }
+  .avis-card .stars { font-size: 14px; margin-bottom: 14px; }
+  .avis-card p {
+    font-size: 14px; color: var(--texte-muted);
+    line-height: 1.8; font-style: italic; margin-bottom: 20px;
+  }
+  .avis-card strong {
+    font-size: 13px; color: var(--texte); font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  /* ── NEWSLETTER ── */
+  .newsletter {
+    padding: 80px 5%; text-align: center;
+    background: #fff;
+  }
+  .newsletter h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px; margin-bottom: 12px; color: var(--texte);
+  }
+  .newsletter p {
+    color: var(--texte-muted); margin-bottom: 32px; font-size: 15px;
+  }
+  .news-form {
+    display: flex; gap: 12px; max-width: 480px;
+    margin: 0 auto; justify-content: center;
+  }
+  .news-form input {
+    flex: 1; padding: 14px 20px;
+    border: 1px solid var(--rose-moyen);
+    border-radius: 40px; font-family: 'Jost', sans-serif;
+    font-size: 14px; outline: none; color: var(--texte);
+    background: var(--rose-pale);
+  }
+  .news-form input:focus { border-color: var(--rose-fonce); }
+  .news-form button {
+    padding: 14px 28px;
+    background: var(--rose-fonce); color: #fff;
+    border: none; border-radius: 40px; cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px; font-weight: 500; letter-spacing: 1px;
+    text-transform: uppercase; transition: all 0.3s;
+    white-space: nowrap;
+  }
+  .news-form button:hover { background: var(--rose-accent); transform: scale(1.04); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--texte);
+    color: rgba(255,255,255,0.7);
+    padding: 60px 5% 30px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px; max-width: 1100px; margin: 0 auto 50px;
+  }
+  .footer-logo-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; color: #fff; margin-bottom: 4px;
+  }
+  .footer-logo-sub {
+    font-size: 11px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--or); margin-bottom: 16px;
+  }
+  .footer-about {
+    font-size: 13px; line-height: 1.8; max-width: 280px;
+  }
+  .footer-col h4 {
+    color: #fff; font-size: 13px; font-weight: 500;
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;
+  }
+  .footer-col a {
+    display: block; color: rgba(255,255,255,0.6);
+    text-decoration: none; font-size: 13px;
+    margin-bottom: 10px; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--rose-moyen); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px; text-align: center;
+    font-size: 12px; letter-spacing: 1px; max-width: 1100px; margin: 0 auto;
+  }
+  .footer-bottom span { color: var(--rose-moyen); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-16px); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    header { flex-direction: column; align-items: center; gap: 16px; padding: 16px 5%; height: auto; }
+    nav { display: flex; flex-wrap: nowrap; justify-content: center; gap: 12px; overflow-x: auto; }
+    nav a { white-space: nowrap; }
+    .hero { flex-direction: column; text-align: center; padding: 120px 5% 60px; }
+    .hero p { max-width: 100%; margin: 0 auto 24px; }
+    .hero-btns { justify-content: center; width: 100%; }
+    .hero-image { display: none; }
+    .cat-grid { grid-template-columns: 1fr; }
+    .cat-card:last-child { grid-column: auto; }
+    .apropos { flex-direction: column; text-align: center; padding: 80px 5%; }
+    .apropos-img { flex: none; width: 240px; height: 300px; margin: 0 auto 30px; }
+    .avis-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-grid { gap: 24px; }
+    .newsletter .news-form { flex-direction: column; }
+    .newsletter .news-form input, .newsletter .news-form button { width: 100%; }
+    .btn-outline, .btn-primary, .btn-white { width: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="logo">
+    <span class="logo-main">Coin Précieux</span>
+    <span class="logo-sub">by Aminah</span>
+  </div>
+  <nav>
+    <a href="#categories">Collections</a>
+    <a href="#produits">Boutique</a>
+    <a href="#apropos">À propos</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="header-icons">
+    <button class="icon-btn" title="Rechercher">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </button>
+    <button class="icon-btn" title="Favoris">
+      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">✦ Nouvelle Collection 2025</div>
+    <h1>La Mode<br><em>Précieuse</em><br>pour Filles</h1>
+    <p>Découvrez une sélection raffinée de robes, sacs et chaussures pensées pour sublimer chaque fille. Élégance, douceur et style réunis.</p>
+    <div class="hero-btns">
+      <a href="#categories" class="btn-primary">Voir les collections</a>
+      <a href="habits.html" class="btn-outline">Voir Habits</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="hero-card-float">
+      <span class="float-tag">Tendance</span>
+      <div class="dress-illustration">👗</div>
+      <div class="hero-card-label">
+        <p>Robe Florale</p>
+        <span>Collection Printemps</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CATEGORIES ═══ -->
+<section class="categories" id="categories">
+  <div class="section-head">
+    <span class="eyebrow">Explorez</span>
+    <h2>Nos <em>Collections</em></h2>
+  </div>
+  <div class="cat-grid">
+    <a href="habits.html" class="cat-card robes">
+      <div class="cat-bg">👗</div>
+      <div class="cat-overlay">
+        <h3>Robes & Habits</h3>
+        <span>24 articles disponibles</span>
+      </div>
+    </a>
+    <a href="sacs.html" class="cat-card sacs">
+      <div class="cat-bg">👜</div>
+      <div class="cat-overlay">
+        <h3>Sacs & Accessoires</h3>
+        <span>18 articles disponibles</span>
+      </div>
+    </a>
+    <a href="chaussures.html" class="cat-card chaussures">
+      <div class="cat-bg">👠</div>
+      <div class="cat-overlay">
+        <h3>Chaussures</h3>
+        <span>30 articles disponibles</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ BOUTIQUE ═══ -->
+<section class="produits" id="produits">
+  <div class="section-head">
+    <span class="eyebrow">Nos Collections</span>
+    <h2>Magasinez par <em>Catégorie</em></h2>
+  </div>
+  <p style="text-align: center; font-size: 18px; color: var(--texte-muted); max-width: 760px; margin: 0 auto 32px;">
+    Retrouvez tous les articles dans les pages dédiées : Habits, Sacs et Chaussures. Cliquez sur une collection pour voir les produits.
+  </p>
+  <div style="text-align: center; margin: 20px;">
+    <a href="habits.html" class="btn-primary">Voir Habits</a>
+    <a href="sacs.html" class="btn-primary" style="margin: 0 10px;">Voir Sacs</a>
+    <a href="chaussures.html" class="btn-primary">Voir Chaussures</a>
+  </div>
+</section>
+
+<!-- ═══ PROMO BANNER ═══ -->
+<section class="promo">
+  <h2>Livraison <em>Gratuite</em> dès 25 000 FCFA</h2>
+  <p>Commandez maintenant et recevez votre colis chez vous dans les 48h</p>
+  <a href="#produits" class="btn-white">Commander maintenant</a>
+</section>
+
+<!-- ═══ À PROPOS ═══ -->
+<section class="apropos" id="apropos">
+  <div class="apropos-img"><img src="Images/fondatrice.jpeg" alt="Aminah, fondatrice de Coin Précieux"></div>
+  <div class="apropos-text">
+    <h2>Bienvenue chez<br><em>Coin Précieux</em></h2>
+    <p>Bonjour, je suis <strong>Aminah</strong>, fondatrice de Coin Précieux. Passionnée de mode féminine depuis toujours, j'ai créé cette boutique pour offrir aux femmes et aux filles un espace où beauté et élégance se rencontrent.</p>
+    <p>Chaque pièce est sélectionnée avec soin pour sa qualité, sa finesse et son style. Chez Coin Précieux, vous trouverez des robes magnifiques, des sacs tendance et des chaussures qui subliment chaque pas.</p>
+    <p>Mon engagement : vous faire vous sentir unique, précieuse et rayonnante à chaque occasion.</p>
+    <div class="apropos-signature">Aminah</div>
+  </div>
+</section>
+
+<!-- ═══ AVIS ═══ -->
+<section class="avis">
+  <div class="section-head">
+    <span class="eyebrow">Témoignages</span>
+    <h2>Ce Que Disent Nos <em>Clientes</em></h2>
+  </div>
+  <div class="avis-grid">
+    <div class="avis-card">
+      <div class="stars">★★★★★</div>
+      <p>"La qualité est incroyable ! Ma robe était exactement comme sur les photos. Aminah est très professionnelle et la livraison était rapide."</p>
+      <strong>— Fatou S.</strong>
+    </div>
+    <div class="avis-card">
+      <div class="stars">★★★★★</div>
+      <p>"J'ai commandé des chaussures pour ma fille et elle les adore ! Le service est au top, je recommande vivement Coin Précieux."</p>
+      <strong>— Aïssatou D.</strong>
+    </div>
+    <div class="avis-card">
+      <div class="stars">★★★★★</div>
+      <p>"Le sac que j'ai reçu est magnifique, encore plus beau en vrai ! Je reviendrai certainement pour ma prochaine commande."</p>
+      <strong>— Mariama K.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NEWSLETTER ═══ -->
+<section class="newsletter" id="contact">
+  <div class="section-head">
+    <span class="eyebrow">Restez informée</span>
+    <h2>Abonnez-vous à notre <em>Newsletter</em></h2>
+  </div>
+  <p>Recevez les nouveautés, promotions exclusives et conseils mode directement dans votre boîte mail.</p>
+  <div class="news-form">
+    <input type="email" placeholder="Votre adresse email">
+    <button>S'abonner</button>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo-main">Coin Précieux</div>
+      <div class="footer-logo-sub">by Aminah</div>
+      <p class="footer-about">Votre boutique de mode féminine, dédiée à l'élégance et au raffinement. Robes, sacs et chaussures sélectionnés avec amour pour chaque fille précieuse.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Boutique</h4>
+      <a href="#">Robes & Habits</a>
+      <a href="#">Sacs & Accessoires</a>
+      <a href="#">Chaussures</a>
+      <a href="#">Nouveautés</a>
+      <a href="#">Promotions</a>
+    </div>
+    <div class="footer-col">
+      <h4>Information</h4>
+      <a href="#">À propos</a>
+      <a href="#">Livraison</a>
+      <a href="#">Retours</a>
+      <a href="#">FAQ</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="#">WhatsApp</a>
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">Email</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 <span>Coin Précieux</span> — Créé avec ♥ pour Aminah. Tous droits réservés.
+  </div>
+</footer>
+
+</body>
+</html>
